@@ -8,6 +8,7 @@ Ext.define( App.view.common.CommonViewModel, {
   init: function() {
   },
   
+  
   getTitle: function(button) {
       var grid = button.up('gridpanel'), tab = grid.up('panel'),
           title = !grid.title ? tab.title : grid.title;
@@ -45,15 +46,36 @@ Ext.define( App.view.common.CommonViewModel, {
       }
   },
   
+  //TOOLBARBUTTONS
+      onCommonButtonClick: function(button, e, eOpts) {
+        var Window = button.up('window'), //Ext.WindowManager.getActive(),
+            form = Window.down('form');
+        if (button.itemId === 'clearButton') {
+            Ui.clearFieldValues(form);
+            Ui.getDefaultComboboxValues(form);
+        }
+        //else if (button.itemId === 'saveAndCloseButton'){
+        //this.onSaveButtonClick(); Window.close();
+        //}
+        if (button.itemId === 'closeButton') {
+            Window.close();
+        }
+    },
+
+    onButtonAfterRender: function(component, eOpts) {
+        if(/save/i.test(component.itemId)) {Ext.override(component, {formBind: true});}
+        if(/saveAndClose/i.test(component.itemId)) {component.hide();}
+    }
+  
   //Used by Refresh Buttons
   reloadGridStore: function(grid, data) {
       var store = grid.getStore(),
           url = grid.searchUrl; 
       if(data) {
-          GlobalActions.getStoreData(store, data);
+          Ui.getStoreData(store, data);
       }  else {
-          GlobalActions.loadStoreWithoutId(store, url);
-          GlobalActions.clearGridSelection(grid);
+          Ui.loadStoreWithoutId(store, url);
+          Ui.clearGridSelection(grid);
       }
   }
   
