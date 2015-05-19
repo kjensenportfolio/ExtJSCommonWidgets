@@ -60,6 +60,19 @@ clearFieldValues: function(component) {
 },
 
 
+//PANELS
+
+//PANELS > TABPANELS
+    toggleTabs : function(tabpanel, status) {
+        var toggleFn = status === true ? 'enable' : 'disable',
+            collection = Ext.ComponentQuery.query('tab', tabpanel);
+        Ext.Array.forEach(collection, function(tab){
+            if(!tab[0]) {
+                tab[toggleFn]();
+            }
+        });
+    },
+
 //GRIDS
 
 //GRIDS > RECORDS
