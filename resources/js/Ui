@@ -74,6 +74,24 @@ clearFieldValues: function(component) {
     },
 
 //GRIDS
+    //Obs: Grid SearchField Search Action 
+        storeSearch: function(store, newValue) {
+        var me = this;
+        if(newValue !== ''){
+            store.clearFilter(true);
+            var matcher = new RegExp(Ext.String.escapeRegex(newValue), "i");
+            store.filter({
+                filterFn: function(record) {
+                    var sku = record.get('sku'),
+                        name = record.get('itemName'),
+                        status = record.get('itemStatus');
+                    return matcher.test(sku) || matcher.test(name) || matcher.test(status);
+                }
+            }, me);
+        } else {
+            store.clearFilter();
+        }
+    },
 
 //GRIDS > RECORDS
     deleteRecord: function (url, json, obj, store) {
