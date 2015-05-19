@@ -57,7 +57,30 @@ clearFieldValues: function(component) {
         field.reset();
     });
     Ext.resumeLayouts(true);
-}
+},
+
+
+//GRIDS
+
+//GRIDS > RECORDS
+    deleteRecord: function (url, json, obj, store) {
+        messageBox = Ext.Msg.show({
+            title:'Confirm',
+            msg: 'Are you sure you want to delete this '+GlobalActions.getTitle()+'?',
+            buttons: Ext.Msg.YESNO,
+            scope: this,
+            fn: function(btn) {
+                if (btn === 'yes') {
+                    GlobalActions.remove(url, json, obj, store);
+                    //this.showToast(Ext.String.format(GlobalActions.getTitle() + 'Item Was Deleted'));
+                    messageBox.close();
+                }
+                else if (btn === 'no') {
+                    messageBox.close();
+                }
+            }
+        });
+    },
     
 
 }
