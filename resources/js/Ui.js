@@ -107,6 +107,18 @@ clearFieldValues: function(component) {
 
 //GRIDS
 
+    //TODO - MOVE OUT OF COMMON.ViewModel.js
+    
+    reloadGridStore: function(grid, data) {
+        var store = grid.getStore(),
+            url = grid.searchUrl; 
+        if(data) {
+            Ui.getStoreData(store, data);
+        }  else {
+            Ui.clearGridSelection(grid);
+        }
+    },
+
     //Obs: If the Grid Store has a special search URL and Session Header
     gridRefresh : function(grid){
         var store = grid.store;
