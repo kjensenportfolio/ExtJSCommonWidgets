@@ -1,0 +1,11 @@
+/* Common View Model */
+
+Ext.define( App.view.common.CommonViewModel, {
+  extend: 'Ext.view.ViewModel',
+  alias: 'model.common',
+  xtype: ''
+  
+  init: function() {
+  }
+  
+});
