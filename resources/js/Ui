@@ -74,6 +74,14 @@ clearFieldValues: function(component) {
     },
 
 //GRIDS
+
+    //Obs: If the Grid Store has a special search URL and Session Header
+    gridRefresh : function(grid){
+        var store = grid.store;
+        store.load();
+    },
+    
+    
     //Obs: Grid SearchField Search Action 
         storeSearch: function(store, newValue) {
         var me = this;
