@@ -92,6 +92,35 @@ clearFieldValues: function(component) {
             store.clearFilter();
         }
     },
+    
+    loadGridStores: function(noClip) {
+        var me = this;
+        //obs: removes the first tab, if post call is made and grid store is returned with POST call
+        if (!noClip) me.lookupReference('tabpanel').items.items.splice(0, 1);
+        var tabs = me.lookupReference('tabpanel').items.items;
+        me.lookupReference('gridOne').searchUrl = 'one/search';
+        me.lookupReference('gridTwo').searchUrl = '/two/search';
+        me.lookupReference('gridThree').searchUrl = '/three';
+        me.lookupReference('gridFour').searchUrl = '/four/search';
+        me.lookupReference('gridFive').searchUrl = '/five/search';
+        me.lookupReference('gridSix').searchUrl = '/six/' + globalParameter;
+
+        Ext.Array.forEach(tabs, function(item) {
+            var grid = item.child(),
+                store = grid.getStore(),
+                url = grid.searchUrl,
+                params = store.getProxy().extraParams;
+            if (grid.itemId.match(/Group/)) {
+                params.globalparam = globalParameter;
+                GlobalActions.getfilteredStore(store, url, params);
+            } else {
+                if (grid.itemId.match(/categories/)) {
+                    params.globalparamId = globalParameter;
+                }
+                GlobalActions.loadStoreWithoutId(store, url);
+            }
+        });
+    },
 
 //GRIDS > RECORDS
     deleteRecord: function (url, json, obj, store) {
