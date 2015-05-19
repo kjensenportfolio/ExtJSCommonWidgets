@@ -13,6 +13,12 @@ Ui = {
     getMultipleStoresData: function(map) {
       map.
     }
+    
+    getAssociatedStore: function(refHolder, storeId, url) {
+        var vm = refHolder.getViewModel(),
+            store = vm.getStore(storeId);
+        GlobalActions.loadStoreWithoutId(store, url);
+    },
   
   
   //FORMS
