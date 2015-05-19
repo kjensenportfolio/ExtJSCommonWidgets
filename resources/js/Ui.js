@@ -3,6 +3,39 @@
 Ui = {
 
 //UNCATEGORIZED [TODO]
+    gridRefresh : function(grid){
+        var store = grid.store;
+        store.load();
+    },
+
+    rowReselect: function(grid, form, currentSelection, fieldName, value) {
+        if(currentSelection || fieldName && value) {
+            var reselectGridRow = new Ext.util.DelayedTask(function(){
+                var store = grid.getStore(), view = grid.getView(), model = grid.getSelectionModel(),
+                    newRecord = fieldName && value ? store.findRecord(fieldName, value) : null,
+                    selection = currentSelection ? currentSelection : newRecord,
+                    index = store.indexOf(selection);
+                model.select(selection);
+                view.bufferedRenderer.scrollTo(index, true);
+                if (form) {
+                    form.loadRecord(selection);
+                }
+            });
+            reselectGridRow.delay(500);
+        } else { return Ext.Msg.show('Status','Warning: Unable to Reselect New Correct Record!'); }
+    },
+
+    getfilteredStore: function(store, url, params){
+        var proxy = store.getProxy();
+        proxy.url = url;
+        GlobalActions.setHeader(store);
+        store.getRange(store.removeAll());
+        store.clearFilter(false);
+        proxy.setExtraParams(params);
+        GlobalActions.loadStoreWithoutId(store, url);
+    },
+
+
     _partitionedName : function(l) {
         var w = l.match(/[A-Z][a-z]+/g),
             n = w[0] === 'Discount' ? l : w[0];
