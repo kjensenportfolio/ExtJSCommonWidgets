@@ -1,0 +1,57 @@
+/* UI Javascript Resource Files */
+
+Ui = {
+
+
+    
+  //STORES 
+    getStoreData: function(store, data) {
+        store.getRange(store.removeAll());
+        store.add(data);
+    },
+    
+    getMultipleStoresData: function(map) {
+      map.
+    }
+  
+  
+  //FORMS
+  getDefaultComboboxValues: function(component) {
+    collection = Ext.ComponentQuery.query('combobox', component);
+    Ext.Array.forEach(collection, function(combobox){
+        var statusCombobox = /status/i.test(combobox.displayField);
+        if(statusCombobox) {
+            var pendingValue =  combobox.findRecordByValue('Pending');
+            combobox.select(pendingValue);
+        } else {
+            combobox.select(combobox.getStore().getAt(0)); 
+        }
+    });
+},
+
+clearComboboxValues: function(component) {
+    Ext.suspendLayouts(); 
+    collection = Ext.ComponentQuery.query('combobox', component);
+    Ext.Array.forEach(collection, function(combobox){
+        var statusCombobox = /status/i.test(combobox.displayField);
+        if(statusCombobox) {
+            var pendingValue = combobox.findRecordByValue('Pending');
+            combobox.select(pendingValue);
+        } else {
+            combobox.reset();
+        }
+    });
+    Ext.resumeLayouts(true); 
+},
+
+clearFieldValues: function(component) {
+    Ext.suspendLayouts(); 
+    collection = Ext.ComponentQuery.query('field:not(displayfield)', component);
+    Ext.Array.forEach(collection, function(field){
+        field.reset();
+    });
+    Ext.resumeLayouts(true);
+}
+    
+
+}
