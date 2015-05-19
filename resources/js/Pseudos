@@ -1,0 +1,50 @@
+// :viewable
+// Components with "hidden :false", and parent containers are all currently visible.
+Ext.ComponentQuery.pseudos.viewable = function (collection) {
+    return Ext.Array.filter(collection, function (component) {
+        return component.isVisible(true);
+    });
+};
+
+//excludextype
+//To obtain results with certain xtypes - example: messagebox
+Ext.ComponentQuery.pseudos.excludextype = function (collection, selector) {
+    selector = (Ext.String.escapeRegex(selector), "i");
+    Ext.Array.filter(collection, function (component) {
+        if (!selector.test(component.xtypesChain)) {
+            return component.isVisible(true);
+        }
+    });
+};
+
+// :contains(substring)
+Ext.ComponentQuery.pseudos.contains = function (collection, selector) {
+    var Query = Ext.ComponentQuery,
+        i = 0,
+        length = collection.length,
+        results = [],
+        index = -1,
+        component,
+        parts = [component.getId(),component.getItemId(),component.getName ? component.getName() : '', component.getXType()],
+        joinedComponentParts = parts.join('\0'),
+        match = component && component.isComponent ? joinedComponentParts(collection) : '';
+
+    for(; i < length; ++i) {
+        component = collection[i];
+        if (match){if(Query.is(component, selector)) {results[++index] = component;}}
+    }
+    return results;
+};
+
+
+//OLD VIEW viewable
+//     var i = 0,
+//         l = collection.length,
+//         c,
+//         result = [];
+//     for (; i < l; i++) {
+//         if (!(c = collection[i]).isVisible(false)) {
+//             result.push(c);
+//         }
+//     }
+//     return result;
