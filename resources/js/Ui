@@ -2,6 +2,38 @@
 
 Ui = {
 
+//UNCATEGORIZED [TODO]
+    _partitionedName : function(l) {
+        var w = l.match(/[A-Z][a-z]+/g),
+            n = w[0] === 'Discount' ? l : w[0];
+        return n;
+    },
+
+    getTitle : function(button) {
+        var tabPanel = Ext.ComponentQuery.query('tabpanel{isVisible}')[0],
+            tab = tabPanel.getActiveTab(),
+            grids = Ext.ComponentQuery.query('gridpanel{isVisible}', tab);
+        if (button) {grid = button.up('gridpanel');}
+        grid = grids.length > 1 && grids[1].getSelectionModel().hasSelection() ? grids[1] : grids[0];
+        t = !grid.title ? tab.title : grid.title;
+        if (t.match(/ies+$/)) {
+            t = t.replace(/ies+$/, 'y');
+        } else {
+            t = t.replace(/s+$/, '');
+        }
+        return t; //console.log(t);
+    },
+
+    toggleTabs : function(tabpanel, status) {
+        var toggleFn = status === true ? 'enable' : 'disable',
+            collection = Ext.ComponentQuery.query('tab', tabpanel);
+        Ext.Array.forEach(collection, function(tab){
+            if(!tab[0]) {
+                tab[toggleFn]();
+            }
+        });
+    },
+
 
     
   //STORES 
