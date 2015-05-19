@@ -8,6 +8,20 @@ Ext.define( App.view.common.CommonViewModel, {
   init: function() {
   },
   
+  getParentReference: function(reference) {
+    return this._accessParentViewModel(reference);
+  },
+  
+  _accessParentViewModel: function(reference) {
+    var parentVM =  this.getViewModel().getParent(),
+    parentView = parentVM.getView(),
+    reference = parentView.lookupReference(reference);
+    
+    return reference;
+  },
+  
+  
+  //GET ASSICATED GRID TITLES FOR COMMON BUTTONS
   
   getTitle: function(button) {
       var grid = button.up('gridpanel'), tab = grid.up('panel'),
