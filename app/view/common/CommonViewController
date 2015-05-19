@@ -20,9 +20,19 @@ Ext.define( App.view.common.CommonViewModel, {
     return reference;
   },
   
+/* COMMMON [NEW/EDIT/DELETE] BUTTONS */
+    //obs: not needed with ExtJS 5, we can use [bind:{hidden:{gridReference.selection}}]
+    enableButtons: function(buttonList, scope, determiner) {
+        buttonList = !buttonList ? '#editButton{isVisible()}, #deleteButton{isVisible()}': buttonList;
+        var Query = Ext.ComponentQuery,
+            toggleFn = determiner ? 'enable' : 'disable',
+            buttons = Query.query(buttonList, scope);
+        Ext.each(buttons, function(item) {
+            item[toggleFn]();
+        });
+    },
   
-  //GET ASSICATED GRID TITLES FOR COMMON BUTTONS
-  
+  //obs: get associated title of grids for associated buttons
   getTitle: function(button) {
       var grid = button.up('gridpanel'), tab = grid.up('panel'),
           title = !grid.title ? tab.title : grid.title;
