@@ -6,6 +6,55 @@ Ext.define( App.view.common.CommonViewModel, {
   xtype: ''
   
   init: function() {
+  },
+  
+  getTitle: function(button) {
+      var grid = button.up('gridpanel'), tab = grid.up('panel'),
+          title = !grid.title ? tab.title : grid.title;
+      if (title.match(/ies+$/)) {
+          title = title.replace(/ies+$/, 'y');
+      } else if (title.match(/User/)) {
+          title = title.replace(/Access+$/, '');
+      } else {
+          title = title.replace(/s+$/, '');
+      }
+      return title;
+  },
+
+  setToolTips: function(button) {
+      switch (button.itemId) {
+          case 'newButton':button.setTooltip('Create a New ' + this.getTitle(button));break;
+          case 'editButton':button.setTooltip('Edit selected ' + this.getTitle(button));break;
+          case 'deleteButton':button.setTooltip('Delete selected ' + this.getTitle(button));break;
+          case 'refreshButton':button.setTooltip('Refresh this ' + this.getTitle(button) + ' Grid');break;
+          case 'newCatalogUser':button.setTooltip('Create a New Suite ' + this.getTitle(button));break;
+          case 'newSuiteUser':button.setTooltip('Link Suite ' + this.getTitle(button) + 'to Catalog');break;
+      }
+  },
+
+  setIconCls: function(button) {
+      if (!button.iconCls) {
+          switch (button.itemId) {
+              case 'newButton':button.setIconCls('new_32');break;
+              case 'editButton':button.setIconCls('edit_32');break;
+              case 'deleteButton':button.setIconCls('remove_32');break;
+              case 'refreshButton':button.setIconCls('refresh_32');break;
+              case 'newCatalogUser':button.setIconCls('new_32');break;
+              case 'newSuiteUser':button.setIconCls('link_32');break;
+          }
+      }
+  },
+  
+  //Used by Refresh Buttons
+  reloadGridStore: function(grid, data) {
+      var store = grid.getStore(),
+          url = grid.searchUrl; 
+      if(data) {
+          GlobalActions.getStoreData(store, data);
+      }  else {
+          GlobalActions.loadStoreWithoutId(store, url);
+          GlobalActions.clearGridSelection(grid);
+      }
   }
   
 });
