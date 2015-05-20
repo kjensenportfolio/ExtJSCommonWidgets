@@ -3,8 +3,11 @@
 Mvvm = {
 
   _checkForParentViewModel(component) {
-    var parent = component ? component.getViewModel().getParent() ? this.getViewModel().getParent();
+    var parent = component ? component.getViewModel().getParent() : this.getViewModel().getParent();
     if (parent) return true; 
     else return false;
+    // if (parent) {boolean = true;}
+    // else {boolean = false;}
+    // return boolean;
   }
 }
