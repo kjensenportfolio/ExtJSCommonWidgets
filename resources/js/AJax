@@ -1,1 +1,106 @@
 /* Common Ajax Functions */
+AJax = {
+    get: function (options){
+        var sessionId = GlobalActions.getSessionId();
+        Ext.Ajax.request({
+            url: options.url,
+            params: options.params,
+            scope: this,
+            method: 'GET',
+            headers: {
+                'session-id': sessionId,
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+            callBackScope: options.scope,
+            success: this.successResponse,
+            failure: this.failResponse,
+            successCallBack: options.success,
+            failureCallBack: options.failure,
+            completedCallBack: options.completed
+        });
+    },
+
+    post: function (options){
+        var sessionId = GlobalActions.getSessionId();
+        Ext.Ajax.request({
+            url: options.url,
+            params: options.params,
+            scope: this,
+            method: 'POST',
+            headers: {
+                'session-id':sessionId,
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+            callBackScope: options.scope,
+            success: this.successResponse,
+            failure: this.failResponse,
+            successCallBack: options.success,
+            failCallBack: options.failure,
+            completedCallBack: options.completed
+        });
+    },
+
+    put: function (options){
+        var sessionId = GlobalActions.getSessionId();
+        Ext.Ajax.request({
+            url: options.url,
+            params: options.params,
+            scope: this,
+            method: 'PUT',
+            headers: {
+                'session-id': sessionId,
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+            callBackScope: options.scope,
+            success: this.successResponse,
+            failure: this.failResponse,
+            successCallBack: options.success,
+            failCallBack: options.failure,
+            completedCallBack: options.completed
+        });
+    },
+
+    remove: function (options){
+        var sessionId = GlobalActions.getSessionId();
+        Ext.Ajax.request({
+            url: options.url,
+            params: options.params,
+            scope: this,
+            method: 'DELETE',
+            headers: {
+                'session-id': sessionId,
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+            callBackScope: options.scope,
+            success: this.successResponse,
+            failure: this.failResponse,
+            successCallBack: options.success,
+            failCallBack: options.failure,
+            completedCallBack: options.completed
+        });
+    },
+
+    successResponse: function (response, options){
+        if (this.successCallBack){
+            this.successCallBack(response, options);
+        }
+    },
+
+    failResponse: function (response, options){
+        if (this.failCallBack){
+            this.failCallBack(response, options);	
+        }	
+    },
+
+    successCallBack: function (response, options){
+        if (options.success){
+            options.success(options.callBackScope, response, true);			
+        }
+    },
+
+    failCallBack: function (response, options){
+        if (options.success){
+            options.failure(options.callBackScope, response, true);
+        }
+    }	
+};
