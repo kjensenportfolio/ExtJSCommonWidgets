@@ -1,7 +1,7 @@
 //Tools Grab Object References Relative To Other Object References if in MVVM Mode
 
 Mvvm = {
-  _checkForParentViewModel: function(component) {
+  _checkForParentViewModel - function(component) {
     var parent = component ? component.getViewModel().getParent() : this.getViewModel().getParent();
     if (parent) return true; 
     else return false;
@@ -19,12 +19,12 @@ Mvvm = {
   
   lookupParentVMReference: function(reference, component) {
     var parentVM = getParentViewModel(component);
-    if(parentVM) return parentVM.lookupReference(reference);
-  }
-  
+    if(parentVM) return parentVM.getData()[reference];
+  },
+
   getParentVMReferenceValue: function(reference, component) {
-    var parentVM = getParentViewModel(component);
-    if(parentVM) return parentVM.lookupReference(reference);
+    var reference = lookupParentVMReference(reference, component),
+        value = reference.selection ? reference.selection :  reference.value;
+      return value;
   }
-  
 }
