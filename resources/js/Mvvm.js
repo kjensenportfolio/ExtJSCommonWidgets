@@ -22,7 +22,7 @@ Mvvm = {
     if(parentVM) return parentVM.getData()[reference];
   },
   
-  lookupParentVMReference: function(reference, component) {
+  lookupParentReference: function(reference, component) {
     var parentView = getParentViewModel(component).getView();
     if(parentView) return parentView.lookupReference(reference);
   },
