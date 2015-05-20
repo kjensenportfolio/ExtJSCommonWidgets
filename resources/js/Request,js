@@ -1,7 +1,7 @@
 /* Common Ajax Functions */
 Request = {
     get: function (options){
-        var sessionId = GlobalActions.getSessionId();
+        var sessionId = Session.getSessionId();
         Ext.Ajax.request({
             url: options.url,
             params: options.params,
@@ -21,7 +21,7 @@ Request = {
     },
 
     post: function (options){
-        var sessionId = GlobalActions.getSessionId();
+        var sessionId = Session.getSessionId();
         Ext.Ajax.request({
             url: options.url,
             params: options.params,
@@ -41,7 +41,7 @@ Request = {
     },
 
     put: function (options){
-        var sessionId = GlobalActions.getSessionId();
+        var sessionId = Session.getSessionId();
         Ext.Ajax.request({
             url: options.url,
             params: options.params,
@@ -61,7 +61,7 @@ Request = {
     },
 
     remove: function (options){
-        var sessionId = GlobalActions.getSessionId();
+        var sessionId = Session.getSessionId();
         Ext.Ajax.request({
             url: options.url,
             params: options.params,
