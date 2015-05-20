@@ -1,5 +1,5 @@
 /* Common Ajax Functions */
-AJax = {
+Request = {
     get: function (options){
         var sessionId = GlobalActions.getSessionId();
         Ext.Ajax.request({
