@@ -47,8 +47,8 @@ Ext.define('Mvvm', function (me) {
     if(parentView) return parentView.lookupReference(reference);
   }
 
-  function getParentVMReferenceValue(reference, component) {
-    var reference = lookupParentVMReference(reference, component),
+  function getParentReferenceValue(reference, component) {
+    var reference = lookupParentReference(reference, component),
         value = reference.selection ? reference.selection :  reference.value;
       return value;
   }
@@ -71,7 +71,7 @@ Ext.define('Mvvm', function (me) {
 
 			lookupParentReference: lookupParentReference,
 
-			getParentVMReferenceValue: getParentVMReferenceValue
+			getParentReferenceValue: getParentReferenceValue
 		}
 	}	
 });
