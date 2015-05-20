@@ -1,9 +1,9 @@
 //Tools Grab Object References Relative To Other Object References if in MVVM Mode
-
-Ext.define('Mvvm', function (me) {
+//Mvvm
+Ext.define('Ui', function (me) {
 	'use strict';
 
- self.Mvvm = me; // global execution context alias
+ self.Ui = me; // global execution context alias
  
  function getViewPort() {
     return Ext.ComponentQuery.query('viewport')[0];
@@ -53,6 +53,12 @@ Ext.define('Mvvm', function (me) {
       return value;
   }
   
+  function getParentReferenceData(reference, component) {
+    var reference = lookupParentReference(reference, component),
+        value = reference.selection.getData() ? reference.selection.getData() :  reference.value;
+      return value;
+  }
+  
   	return {
 		statics: {
 			//Relevant Searches
@@ -71,7 +77,9 @@ Ext.define('Mvvm', function (me) {
 
 			lookupParentReference: lookupParentReference,
 
-			getParentReferenceValue: getParentReferenceValue
+			getParentReferenceValue: getParentReferenceValue,
+
+			getParentReferenceData: getParentReferenceData
 		}
 	}	
 });
