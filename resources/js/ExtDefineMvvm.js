@@ -4,6 +4,22 @@ Ext.define('Mvvm', function (me) {
 	'use strict';
 
  self.Mvvm = me; // global execution context alias
+ 
+ function getViewPort() {
+    return Ext.ComponentQuery.query('viewport')[0];
+ }
+
+ function getTopmostWindow() {
+    var window = Ext.WindowManager.getActive(),
+        xtypes = window.xtypes;
+    if(!/messagebox/i.test(window)) return window;
+ } 
+ 
+  function getTopmostWindowViewModel() {
+    var window = Ext.WindowManager.getActive(),
+        xtypes = window.xtypes;
+    if(!/messagebox/i.test(window)) return window.getViewModel();
+ } 
 		
  function _checkForParentViewModel(component) {
     var parent = component ? component.getViewModel().getParent() : this.getViewModel().getParent();
@@ -39,7 +55,14 @@ Ext.define('Mvvm', function (me) {
   
   	return {
 		statics: {
+			//Relevant Searches
+			getViewPort: getViewPort,
 
+			getTopmostWindow: getTopmostWindow,
+			
+			getTopmostWindowViewModel: getTopmostWindowViewModel,
+			
+			//Reference Searches
 			getParentViewModel: getParentViewModel,
 
 			getParentVMReferences: getParentVMReferences,
