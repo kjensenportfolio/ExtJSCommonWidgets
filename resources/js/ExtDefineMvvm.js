@@ -14,7 +14,7 @@ Ext.define('Ui', function (me) {
  }
  
  function getMainViewReference(reference) {
- 	return App.getApplication.getMainView()..lookupReference(reference);
+ 	return App.getApplication.getMainView().lookupReference(reference);
  }
 
  function getTopmostWindow() {
