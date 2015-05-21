@@ -14,6 +14,18 @@ Ext.define('Ui', function (me) {
             xtypes = window.xtypes;
         if(!/messagebox/i.test(window)) return window;
     }
+    
+    
+    //SELECTIONS [GRIDS, COMBOBOXES]
+    getSelectionValue: function(selection, property) {
+        if(selection) return selection.get(property);
+        else return null;
+    },
+    
+    //GRID FUNCTIONS
+    
+    
+    
       
     return {
     	statics: {
@@ -22,5 +34,5 @@ Ext.define('Ui', function (me) {
     
     		getTopmostWindow: getTopmostWindow,
     	}
-    }	
+    }
 });
