@@ -5,8 +5,16 @@ Ext.define('Ui', function (me) {
 
  self.Ui = me; // global execution context alias
  
+ function getMainView() {
+ 	return App.getApplication().getMainView();
+ }
+ 
  function getViewPort() {
-    return Ext.ComponentQuery.query('viewport')[0];
+ 	return getMainView();
+ }
+ 
+ function getMainViewReference(reference) {
+ 	return App.getApplication.getMainView()..lookupReference(reference);
  }
 
  function getTopmostWindow() {
