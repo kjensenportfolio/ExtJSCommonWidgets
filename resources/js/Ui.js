@@ -33,6 +33,8 @@ Ext.define('Ui', function (me) {
     		getViewPort: getViewPort,
     
     		getTopmostWindow: getTopmostWindow,
+    
+    		getSelectionValue: getSelectionValue
     	}
     }
 });
