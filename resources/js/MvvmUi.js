@@ -28,11 +28,11 @@ OtherUi = {
     getfilteredStore: function(store, url, params){
         var proxy = store.getProxy();
         proxy.url = url;
-        GlobalActions.setHeader(store);
+        //Requests.setHeader;
         store.getRange(store.removeAll());
         store.clearFilter(false);
         proxy.setExtraParams(params);
-        GlobalActions.loadStoreWithoutId(store, url);
+        //
     },
 
 
@@ -81,7 +81,7 @@ OtherUi = {
     getAssociatedStore: function(refHolder, storeId, url) {
         var vm = refHolder.getViewModel(),
             store = vm.getStore(storeId);
-        GlobalActions.loadStoreWithoutId(store, url);
+        store.load();
     },
   
   
@@ -228,12 +228,12 @@ clearFieldValues: function(component) {
                 params = store.getProxy().extraParams;
             if (grid.itemId.match(/Group/)) {
                 params.globalparam = globalParameter;
-                GlobalActions.getfilteredStore(store, url, params);
+                Ui.getfilteredStore(store, url, params);
             } else {
                 if (grid.itemId.match(/categories/)) {
                     params.globalparamId = globalParameter;
                 }
-                GlobalActions.loadStoreWithoutId(store, url);
+                store.load()
             }
         });
     },
@@ -242,13 +242,13 @@ clearFieldValues: function(component) {
     deleteRecord: function (url, json, obj, store) {
         messageBox = Ext.Msg.show({
             title:'Confirm',
-            msg: 'Are you sure you want to delete this '+GlobalActions.getTitle()+'?',
+            msg: 'Are you sure you want to delete this '+Ui.getTitle()+'?',
             buttons: Ext.Msg.YESNO,
             scope: this,
             fn: function(btn) {
                 if (btn === 'yes') {
-                    GlobalActions.remove(url, json, obj, store);
-                    //this.showToast(Ext.String.format(GlobalActions.getTitle() + 'Item Was Deleted'));
+                    Action.remove(url, json, obj, store);
+                    //this.showToast(Ext.String.format(Ui.getTitle() + 'Item Was Deleted'));
                     messageBox.close();
                 }
                 else if (btn === 'no') {
