@@ -38,6 +38,13 @@ Ext.onReady(function() {
     },
     naturalText: 'Must Be a Natural Number',
     naturalMask: /^[0-9]/i
+    
+    Ext.apply(Ext.form.field.VTypes, {
+    price: function(val, field) {
+        return price.test(val);
+    },
+    priceText: 'Must Be a Natural Number',
+    priceMask: /^[0-9]/i
 });
 
 });
